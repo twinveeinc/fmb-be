@@ -22,18 +22,26 @@ import Route from '@ioc:Adonis/Core/Route'
 
 Route.get('/', 'FranchisesController.index')
 
+// AUTH
+Route.group(() => {
+  Route.post('/register', 'AuthController.register')
+  Route.post('/login', 'AuthController.login')
+  Route.post('/revoke', 'AuthController.revoke')
+}).prefix('/api/v1/auth')
+
 // Franchise
 Route.group(() => {
   Route.get('/franchises', 'FranchisesController.index')
   Route.get('/franchise/:id', 'FranchisesController.show')
 }).prefix('/api/v1/')
+// .middleware('auth')
 
 // Locations by Zipcode
 Route.group(() => {
   Route.get('/zipcodes', 'ZipcodesController.index')
   Route.get('/zipcode/:id', 'ZipcodesController.show')
 }).prefix('/api/v1/')
-
+// .middleware('auth')
 // Customer
 Route.group(() => {
   Route.get('/customers', 'CustomersController.index')

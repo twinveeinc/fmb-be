@@ -16,10 +16,24 @@ export default class FranchisesController {
 
   public async show({ response, params }: HttpContextContract) {
     const [data] = await Zipcode.query().where('zipcode', params.id)
+    const [company] = await Franchise.query().where('id', data.franchiseId)
 
-    const zipcodeMatcher = data
-      ? { franchiseAvailable: true, zipcode: data.zipcode }
-      : { franchiseAvailable: false, zipcode: null }
+    const res = {
+      franchiseAvailable: true,
+      zipcode: data.zipcode,
+      city: company.name,
+      franchise_id: company.id,
+    }
+
+    const zipcodeMatcher =
+      !data && !company
+        ? { franchiseAvailable: false, zipcode: null }
+        : {
+            franchiseAvailable: true,
+            zipcode: data.zipcode,
+            city: company.name || null,
+            franchise_id: company.id || null,
+          }
 
     response.status(200).json(zipcodeMatcher)
   }
