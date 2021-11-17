@@ -4,10 +4,11 @@ import Franchise from 'App/Models/Franchise'
 import Zipcode from 'App/Models/Zipcode'
 
 export default class ZipcodesController {
-  public async index({ response }: HttpContextContract) {
-    const data = await Zipcode.all()
+  public async index({ response, request }: HttpContextContract) {
+    const page = request.input('page', 1)
+    const limit = request.input('limit', 10)
+    const data = await Database.from('zipcodes').paginate(page, limit)
     response.status(200).json({
-      count: data.length,
       data,
     })
   }
@@ -17,18 +18,13 @@ export default class ZipcodesController {
   public async store({}: HttpContextContract) {}
 
   public async show({ request, response, params }: HttpContextContract) {
-    // const [data] = await Database.from('zipcodes').where('zipcode', params.id)
-    const data = await Zipcode.query()
-      .preload('franchises')
-      .where('zipcode', params.id)
-      .firstOrFail()
-    const res = data ? data : { message: 'No Franchise available for the zipcode' }
+    const [data] = await Zipcode.query().preload('franchises').where('zipcode', params.id)
 
-    try {
-      response.status(200).json(data)
-    } catch (error) {
-      response.status(404).json({ error, message: 'No Franchise available for the zipcode' })
+    if (!data) {
+      response.status(404)
+      return { message: 'No Franchise available for the zipcode' }
     }
+    response.status(200).json(data)
   }
 
   public async edit({}: HttpContextContract) {}
