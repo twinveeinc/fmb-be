@@ -40,8 +40,9 @@ Route.group(() => {
 Route.group(() => {
   Route.get('/zipcodes', 'ZipcodesController.index')
   Route.get('/zipcode/:id', 'ZipcodesController.show')
-}).prefix('/api/v1/')
-// .middleware('auth')
+})
+  .prefix('/api/v1/')
+  .middleware('auth')
 // Customer
 Route.group(() => {
   Route.get('/customers', 'CustomersController.index')
