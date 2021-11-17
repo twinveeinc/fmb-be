@@ -15,27 +15,25 @@ export default class FranchisesController {
   public async store({}: HttpContextContract) {}
 
   public async show({ response, params }: HttpContextContract) {
-    const [data] = await Zipcode.query().where('zipcode', params.id)
-    const [company] = await Franchise.query().where('id', data.franchiseId)
+    // const [data] = await Zipcode.query().where('zipcode', params.id)
+    const data = await Zipcode.findBy('zipcode', params.id)
 
-    const res = {
-      franchiseAvailable: true,
-      zipcode: data.zipcode,
+    if (!data) {
+      response.status(404)
+      return {
+        message: ' No franchise available for this zipcode',
+        franchise_available: false,
+        zipcode: params.id,
+      }
+    }
+    const [company] = await Franchise.query().where('id', data.franchiseId)
+    const combinedResponse = {
+      franchise_available: true,
+      zipdode: data.zipcode,
       city: company.name,
       franchise_id: company.id,
     }
-
-    const zipcodeMatcher =
-      !data && !company
-        ? { franchiseAvailable: false, zipcode: null }
-        : {
-            franchiseAvailable: true,
-            zipcode: data.zipcode,
-            city: company.name || null,
-            franchise_id: company.id || null,
-          }
-
-    response.status(200).json(zipcodeMatcher)
+    return combinedResponse
   }
 
   public async edit({}: HttpContextContract) {}
