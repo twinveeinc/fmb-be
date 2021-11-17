@@ -4,10 +4,40 @@ import Franchise from 'App/Models/Franchise'
 import Zipcode from 'App/Models/Zipcode'
 
 export default class FranchisesController {
+  /**
+   * @swagger
+   * /api/v1/franchise/{zipcode}:
+   *  get:
+   *     tags:
+   *      - Franchise
+   *     security:
+   *      - bearerAuth: []
+   *     summary: Franchise avalibility by Zipcode
+   *     parameters:
+   *       - name: zipcode
+   *         description: zipcode is required to match a franchise
+   *         in: path
+   *         required: true
+   *         type: integer
+   *
+   *     responses:
+   *       200:
+   *         description: Successs
+   *       401:
+   *         description: Unauthorized access "Api Token Required"
+   *       404:
+   *         description: Unauthorized access "Api Token Required"
+   *       500:
+   *         description: Server Error
+   */
   public async index({ request, response, params }: HttpContextContract) {
-    const data = await Franchise.query().preload('zipcodes')
+    const data = await Franchise.all()
 
-    response.send(data)
+    const t = ['02601', '02664']
+
+    const test = []
+
+    return test
   }
 
   public async create({}: HttpContextContract) {}

@@ -10,12 +10,11 @@ export default {
 
   options: {
     swaggerDefinition: {
-      openapi: '3.0.0',
       info: {
-        title: 'Fix My Boat API V1',
+        title: 'Fix My Boat API v1',
         version: '1.0.0',
         description:
-          'Welcome to the Fix My Boat Developer Page! Here you can find all API documentation for our V1 environment. Code References and Snippets are in the right hand pane. Fix My Boat uses both API keys and OAuth 2.0 as means of authenticating with our API. For organizations and third parties who are interested in exploring the API, we can help you set up an organization with API key access, feel free to contact us at bruno@fixmyboatusa.com',
+          'Welcome to the Fix My Boat Developer Page! Here you can find all API documentation for our V1 environment. Code References and Snippets are in the right hand pane. If you have any questions please feel free to contact us at bruno@fixmyboatusa.com',
       },
 
       securitySchemes: {
