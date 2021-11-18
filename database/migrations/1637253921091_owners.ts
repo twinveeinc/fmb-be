@@ -1,13 +1,15 @@
 import BaseSchema from '@ioc:Adonis/Lucid/Schema'
 
-export default class Zipcodes extends BaseSchema {
-  protected tableName = 'zipcodes'
+export default class Owners extends BaseSchema {
+  protected tableName = 'owners'
 
   public async up() {
     this.schema.createTable(this.tableName, (table) => {
       table.increments('id')
-      table.string('zipcode')
-      table.integer('franchise_id').unsigned().notNullable()
+      table.string('first_name')
+      table.string('last_name')
+
+      table.timestamps(true, true)
     })
   }
 

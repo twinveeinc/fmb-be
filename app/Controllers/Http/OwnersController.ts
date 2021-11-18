@@ -1,13 +1,16 @@
 import { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
 import Database from '@ioc:Adonis/Lucid/Database'
-import Customer from 'App/Models/Customer'
+import Owner from 'App/Models/Owner'
 
-export default class CustomersController {
-  public async index({ response }: HttpContextContract) {
-    const data = await Database.from('customers')
-      // .select('customers.id,')
-      .join('franchises', 'franchises.id', 'franchise_id')
-    response.status(200).json(data)
+export default class OwnersController {
+  public async index({}: HttpContextContract) {
+    // return await Database.from('owners as o')
+    //   .select('*')
+    //   .join('franchises as f', (q) => {
+    //     q.on('o.owner_id', '=', 'f.owner_id')
+    //   })
+
+    return await Owner.query().preload('franchises')
   }
 
   public async create({}: HttpContextContract) {}

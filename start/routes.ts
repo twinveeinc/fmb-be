@@ -31,20 +31,30 @@ Route.group(() => {
 
 // Franchise
 Route.group(() => {
-  Route.get('/franchises', 'FranchisesController.index')
-  Route.get('/franchise/:id', 'FranchisesController.show')
+  Route.get('/franchises', 'FranchisesController.test')
+  // Route.get('/franchises', 'FranchisesController.index')
+  // Route.get('/franchise/:id', 'FranchisesController.show')
 }).prefix('/api/v1/')
 // .middleware('auth')
 
 // Locations by Zipcode
 Route.group(() => {
-  Route.get('/zipcodes', 'ZipcodesController.index')
-  Route.get('/zipcode/:id', 'ZipcodesController.show')
+  // Route.get('/zipcodes', 'ZipcodesController.index')
+  // Route.get('/zipcode/:id', 'ZipcodesController.show')
 })
-  .prefix('/api/v1/')
-  .middleware('auth')
-// Customer
+
+//Owner Controller
 Route.group(() => {
-  Route.get('/customers', 'CustomersController.index')
-  Route.get('/customer/:id', 'CustomersController.show')
+  Route.get('/owners', 'OwnersController.index')
+  // Route.get('/zipcode/:id', 'ZipcodesController.show')
 }).prefix('/api/v1/')
+// .middleware('auth')
+
+//Location Controller
+Route.group(() => {
+  Route.get('/locations', 'LocationsController.index')
+}).prefix('/api/v1/')
+// .middleware('auth')
+
+// Customer
+Route.group(() => {}).prefix('/api/v1/')
