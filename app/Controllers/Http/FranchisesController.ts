@@ -47,7 +47,7 @@ export default class FranchisesController {
       const data = await Zipcode.findByOrFail('zipcode', params.zipcode)
       return {
         franchiseAvilable: true,
-        zipode: data.zipcode,
+        zipcode: data.zipcode,
       }
     } catch (error) {
       return response.status(404).json({
