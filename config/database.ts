@@ -7,7 +7,6 @@
 
 import Env from '@ioc:Adonis/Core/Env'
 import { DatabaseConfig } from '@ioc:Adonis/Lucid/Database'
-const { Pool } = require('pg')
 
 const databaseConfig: DatabaseConfig = {
   /*
