@@ -7,10 +7,14 @@ export default class OwnerSeeder extends BaseSeeder {
       {
         firstName: 'bruno',
         lastName: 'paula',
+        phone: '772-489-1222',
+        email: 'aol@aol.com',
       },
       {
         firstName: 'john',
         lastName: 'doe',
+        phone: '772-489-1223',
+        email: 'aol22@aol.com',
       },
     ])
   }

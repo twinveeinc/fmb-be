@@ -13,6 +13,12 @@ export default class Owner extends BaseModel {
   public lastName: string
 
   @column()
+  public phone: string
+
+  @column()
+  public email: string
+
+  @column()
   public franchiseOwnersId: string
 
   @column.dateTime({ autoCreate: true })

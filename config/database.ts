@@ -7,6 +7,7 @@
 
 import Env from '@ioc:Adonis/Core/Env'
 import { DatabaseConfig } from '@ioc:Adonis/Lucid/Database'
+const { Pool } = require('pg')
 
 const databaseConfig: DatabaseConfig = {
   /*
@@ -41,9 +42,6 @@ const databaseConfig: DatabaseConfig = {
         user: Env.get('PG_USER'),
         password: Env.get('PG_PASSWORD', ''),
         database: Env.get('PG_DB_NAME'),
-        ssl: {
-          rejectUnauthorized: false,
-        },
       },
 
       migrations: {
@@ -57,5 +55,21 @@ const databaseConfig: DatabaseConfig = {
     },
   },
 }
+
+const pool = (() => {
+  if (process.env.NODE_ENV !== 'production') {
+    return new Pool({
+      connectionString: process.env.DATABASE_URL,
+      ssl: false,
+    })
+  } else {
+    return new Pool({
+      connectionString: process.env.DATABASE_URL,
+      ssl: {
+        rejectUnauthorized: false,
+      },
+    })
+  }
+})()
 
 export default databaseConfig

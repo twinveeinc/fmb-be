@@ -8,6 +8,8 @@ export default class Owners extends BaseSchema {
       table.increments('owner_id')
       table.string('first_name')
       table.string('last_name')
+      table.string('phone')
+      table.string('email')
 
       table.timestamp('created_at', { useTz: true })
       table.timestamp('updated_at', { useTz: true })
