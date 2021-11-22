@@ -4,7 +4,7 @@ import Franchise from './Franchise'
 
 export default class Zipcode extends BaseModel {
   @column({ isPrimary: true })
-  public id: number
+  public zipcode_id: number
 
   @column()
   public zipcode: number
@@ -12,12 +12,14 @@ export default class Zipcode extends BaseModel {
   @column()
   public franchiseId: number
 
-  @column.dateTime({ autoCreate: true })
+  @column.dateTime({ autoCreate: true, serializeAs: null })
   public createdAt: DateTime
 
-  @column.dateTime({ autoCreate: true, autoUpdate: true })
+  @column.dateTime({ autoCreate: true, autoUpdate: true, serializeAs: null })
   public updatedAt: DateTime
 
-  @belongsTo(() => Franchise)
+  @belongsTo(() => Franchise, {
+    foreignKey: 'franchiseId',
+  })
   public franchises: BelongsTo<typeof Franchise>
 }
