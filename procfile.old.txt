@@ -1,4 +1,4 @@
 web: ENV_SILENT=true node build/server.js
 release: node build/ace migration:run --force
-release: node && knex migrate:latest && knex seed:run
+
 
