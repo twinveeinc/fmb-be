@@ -4,7 +4,7 @@ import User from 'App/Models/User'
 import { schema, rules } from '@ioc:Adonis/Core/Validator'
 
 export default class AuthController {
-  public async register({ auth, request, response }: HttpContextContract) {
+  public async register({ request, response }: HttpContextContract) {
     const validations = await schema.create({
       email: schema.string({}, [rules.email(), rules.unique({ table: 'users', column: 'email' })]),
       password: schema.string({}, [rules.confirmed()]),
@@ -29,7 +29,7 @@ export default class AuthController {
     }
   }
 
-  public async revoke({ request, auth, response }: HttpContextContract) {
+  public async revoke({ auth }: HttpContextContract) {
     await auth.use('api').revoke()
     return {
       revoked: true,

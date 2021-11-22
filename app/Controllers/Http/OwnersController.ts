@@ -20,18 +20,8 @@ export default class OwnersController {
 
   public async store({}: HttpContextContract) {}
 
-  public async show({ params, response }: HttpContextContract) {
-    const t = await Franchise.query().preload('owners').where('franchise_owners_id', params.id)
-
-    return t
-
-    // try {
-    //   return Owner.query().withCount('*').preload('franchises')
-    // } catch (error) {
-    //   return response.status(404).json({
-    //     msg: `Owner not found with ID# ${params.id}`,
-    //   })
-    // }
+  public async show({ params }: HttpContextContract) {
+    return await Franchise.query().preload('owners').where('franchise_owners_id', params.id)
   }
 
   public async edit({}: HttpContextContract) {}

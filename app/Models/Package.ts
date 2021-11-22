@@ -1,14 +1,5 @@
 import { DateTime } from 'luxon'
-import {
-  BaseModel,
-  BelongsTo,
-  belongsTo,
-  column,
-  HasMany,
-  hasMany,
-  HasOne,
-  hasOne,
-} from '@ioc:Adonis/Lucid/Orm'
+import { BaseModel, BelongsTo, belongsTo, column } from '@ioc:Adonis/Lucid/Orm'
 import Franchise from './Franchise'
 
 export default class Package extends BaseModel {
