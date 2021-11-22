@@ -20,7 +20,9 @@
 
 import Route from '@ioc:Adonis/Core/Route'
 
-Route.get('/', 'FranchisesController.index')
+Route.get('/', async () => {
+  return 'Hello FMB v1 API'
+})
 
 // AUTH
 Route.group(() => {
