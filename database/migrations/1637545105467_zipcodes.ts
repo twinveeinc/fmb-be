@@ -1,14 +1,13 @@
 import BaseSchema from '@ioc:Adonis/Lucid/Schema'
 
-export default class Franchises extends BaseSchema {
-  protected tableName = 'franchises'
+export default class Zipcodes extends BaseSchema {
+  protected tableName = 'zipcodes'
 
   public async up() {
     this.schema.createTable(this.tableName, (table) => {
-      table.increments('franchise_id')
-      table.string('name')
-      table.string('city')
-      table.integer('franchise_owners_id').references('owner_id').inTable('owners').unsigned()
+      table.increments('zipcode_id')
+      table.integer('zipcode').unsigned()
+      table.integer('franchise_id').references('franchise_id').inTable('franchises').unsigned()
       table.timestamp('created_at', { useTz: true })
       table.timestamp('updated_at', { useTz: true })
     })

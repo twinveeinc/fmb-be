@@ -31,28 +31,37 @@ Route.group(() => {
 
 // Franchise
 Route.group(() => {
-  Route.get('/franchises', 'FranchisesController.test')
-  // Route.get('/franchises', 'FranchisesController.index')
-  // Route.get('/franchise/:id', 'FranchisesController.show')
+  Route.get('/franchises', 'FranchisesController.index')
+  Route.get('/franchise/available/:zipcode', 'FranchisesController.availabity')
+  Route.get('/franchise/details', 'FranchisesController.details')
+  Route.get('/franchise/:id', 'FranchisesController.show')
 }).prefix('/api/v1/')
 // .middleware('auth')
 
-// Locations by Zipcode
+// Packages
 Route.group(() => {
-  // Route.get('/zipcodes', 'ZipcodesController.index')
-  // Route.get('/zipcode/:id', 'ZipcodesController.show')
-})
+  Route.get('/packages', 'PackagesController.index')
+  Route.get('/package/:id', 'PackagesController.show')
+}).prefix('/api/v1/')
+// .middleware('auth')
+
+// Zipcode
+Route.group(() => {
+  Route.get('/zipcodes', 'ZipcodesController.index')
+  Route.get('/zipcode/:zipcode', 'ZipcodesController.show')
+}).prefix('/api/v1/')
 
 //Owner Controller
 Route.group(() => {
   Route.get('/owners', 'OwnersController.index')
-  // Route.get('/zipcode/:id', 'ZipcodesController.show')
+  Route.get('/owner/:id', 'OwnersController.show')
 }).prefix('/api/v1/')
 // .middleware('auth')
 
 //Location Controller
 Route.group(() => {
   Route.get('/locations', 'LocationsController.index')
+  Route.get('/location/:zipcode', 'LocationsController.show')
 }).prefix('/api/v1/')
 // .middleware('auth')
 

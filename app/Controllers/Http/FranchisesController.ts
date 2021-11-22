@@ -1,5 +1,7 @@
 import { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
+import Database from '@ioc:Adonis/Lucid/Database'
 import Franchise from 'App/Models/Franchise'
+import Zipcode from 'App/Models/Zipcode'
 
 export default class FranchisesController {
   /**
@@ -29,16 +31,44 @@ export default class FranchisesController {
    *         description: Server Error
    */
   public async index({}: HttpContextContract) {
-    return await Franchise.all()
+    return Franchise.query()
   }
 
-  public async test({}: HttpContextContract) {
-    return await Franchise.all()
+  public async show({ params, response }: HttpContextContract) {
+    try {
+      return await Franchise.findByOrFail('franchise_id', params.id)
+    } catch (error) {
+      return response.status(404).json({ msg: `Franchise not found with the ID# ${params.id}` })
+    }
   }
 
+  public async availabity({ params, response }: HttpContextContract) {
+    try {
+      const data = await Zipcode.findByOrFail('zipcode', params.zipcode)
+      return {
+        franchiseAvilable: true,
+        zipode: data.zipcode,
+      }
+    } catch (error) {
+      return response.status(404).json({
+        msg: `Franchise not available with zipcode ${params.zipcode}`,
+        franchiseAvilable: false,
+        zipcode: Number(params.zipcode),
+      })
+    }
+  }
+  public async details({ response, params }: HttpContextContract) {
+    try {
+      return Franchise.query().preload('zipcodes').preload('packages').preload('services')
+    } catch (error) {
+      return response.status(404).json({
+        msg: `Franchise not available with zipcode ${params.zipcode}`,
+        franchiseAvilable: false,
+        zipcode: Number(params.zipcode),
+      })
+    }
+  }
   public async create({}: HttpContextContract) {}
-
-  public async store({}: HttpContextContract) {}
 
   public async edit({}: HttpContextContract) {}
 

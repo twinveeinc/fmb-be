@@ -1,38 +1,64 @@
 import { DateTime } from 'luxon'
-import { BaseModel, column, HasMany, hasMany } from '@ioc:Adonis/Lucid/Orm'
-import Zipcode from './Zipcode'
-import Customer from './Customer'
+import {
+  BaseModel,
+  BelongsTo,
+  belongsTo,
+  column,
+  HasMany,
+  hasMany,
+  HasOne,
+  hasOne,
+} from '@ioc:Adonis/Lucid/Orm'
+
 import Owner from './Owner'
 import Location from './Location'
+import Zipcode from './Zipcode'
+import Package from './Package'
+import Service from './Service'
 
 export default class Franchise extends BaseModel {
   @column({ isPrimary: true })
-  public id: number
+  public franchiseId: number
 
   @column()
   public name: string
 
   @column()
-  public owner_id: string
+  public city: string
 
   @column()
-  public city: string
+  public franchiseOwnersId: number
+
+  @belongsTo(() => Owner, {
+    foreignKey: 'franchiseOwnersId',
+  })
+  public owners: BelongsTo<typeof Owner>
+
+  @hasMany(() => Zipcode, {
+    foreignKey: 'franchiseId',
+    serializeAs: null,
+  })
+  public zipcodes: HasMany<typeof Zipcode>
+
+  public serializeExtras() {
+    return {
+      zipcodess: this.zipcodes?.map((e) => e.zipcode),
+    }
+  }
+
+  @hasMany(() => Package, {
+    foreignKey: 'franchiseId',
+  })
+  public packages: HasMany<typeof Package>
+
+  @hasMany(() => Service, {
+    foreignKey: 'franchiseId',
+  })
+  public services: HasMany<typeof Service>
 
   @column.dateTime({ autoCreate: true })
   public createdAt: DateTime
 
   @column.dateTime({ autoCreate: true, autoUpdate: true })
   public updatedAt: DateTime
-
-  // @hasMany(() => Zipcode)
-  // public zipcodes: HasMany<typeof Zipcode>
-
-  // @hasMany(() => Customer)
-  // public customers: HasMany<typeof Customer>
-
-  @hasMany(() => Owner)
-  public owners: HasMany<typeof Owner>
-
-  @hasMany(() => Location)
-  public locations: HasMany<typeof Location>
 }

@@ -13,7 +13,8 @@ export default class UsersSchema extends BaseSchema {
       /**
        * Uses timestampz for PostgreSQL and DATETIME2 for MSSQL
        */
-      table.timestamps(true, true)
+       table.timestamp('created_at', { useTz: true })
+       table.timestamp('updated_at', { useTz: true })
     })
   }
 

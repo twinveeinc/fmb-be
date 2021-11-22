@@ -1,19 +1,10 @@
 import { DateTime } from 'luxon'
-import {
-  BaseModel,
-  BelongsTo,
-  belongsTo,
-  column,
-  HasMany,
-  hasMany,
-  HasOne,
-  hasOne,
-} from '@ioc:Adonis/Lucid/Orm'
+import { BaseModel, BelongsTo, belongsTo, column } from '@ioc:Adonis/Lucid/Orm'
 import Franchise from './Franchise'
 
-export default class Package extends BaseModel {
+export default class Service extends BaseModel {
   @column({ isPrimary: true })
-  public package_id: number
+  public serviceId: number
 
   @column()
   public active: boolean
@@ -22,25 +13,28 @@ export default class Package extends BaseModel {
   public name: string
 
   @column()
-  public subName: string
+  public title: string
 
   @column()
   public price: string
 
   @column()
-  public priceSqFt: string
-
-  @column()
-  public special: string
-
-  @column()
-  public discount: string
-
-  @column()
-  public term: string
+  public description: string
 
   @column()
   public notes: string
+
+  @column()
+  public imageUrl: string
+
+  @column()
+  public estimateRequired: boolean
+
+  @column()
+  public primary: boolean
+
+  @column()
+  public flatRate: boolean
 
   @column()
   public franchiseId: number
