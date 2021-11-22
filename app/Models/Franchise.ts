@@ -32,7 +32,7 @@ export default class Franchise extends BaseModel {
 
   public serializeExtras() {
     return {
-      zipcodess: this.zipcodes?.map((e) => e.zipcode),
+      zipcodes: this.zipcodes?.map((e) => e.zipcode),
     }
   }
 

@@ -7,12 +7,12 @@ export default class FranchiseSeeder extends BaseSeeder {
       {
         name: 'FMB of Fort Piece',
         city: 'Fort Piece',
-        franchiseOwnersId: '1',
+        franchiseOwnersId: 1,
       },
       {
         name: 'FMB of Port st Lucie',
         city: 'Port St Lucie',
-        franchiseOwnersId: '2',
+        franchiseOwnersId: 2,
       },
     ])
   }
